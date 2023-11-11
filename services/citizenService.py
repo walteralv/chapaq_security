@@ -53,7 +53,10 @@ class CitizenService:
         return citizen
     
     async def updateImageCitizenById(self, dni: str, data: CitizenUpdateImage):
-        await updateImageCitizenById(self.dbSession, dni, data)
+        citizen = await updateImageCitizenById(self.dbSession, dni, data)
+        if not citizen:
+            return None
+        return citizen
         
     
     
