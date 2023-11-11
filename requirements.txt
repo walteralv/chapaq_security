@@ -1,0 +1,15 @@
+fastapi==0.104.1
+SQLAlchemy==2.0.23
+python-dotenv==1.0.0
+uvicorn==0.24.0.post1
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4 
+python-multipart==0.0.6
+beanie==1.23.1
+python-decouple==3.6
+pydantic_settings==2.0.3
+pydantic[email]==2.4.2
+mysql==0.0.3
+mysql-connector-python==8.2.0
+aiomysql==0.2.0
+aiosqlite==0.19.0
