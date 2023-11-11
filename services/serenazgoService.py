@@ -3,7 +3,7 @@ from dtos.serenazgo import SerenazgoCreate, SerenazgoUpdateImage, SerenazgoOut
 from core.security import getPassword, verifyPassword
 from models.users import User
 from models.serenazgo import Serenazgo
-from repository.serenazgo import getSerenezgoById, updateImageSerenazgoById
+from repository.serenazgo import getSerenazgoById, updateImageSerenazgoById
 from repository.users import getUserById
 
 from typing import Optional
@@ -36,7 +36,6 @@ class SerenazgoService:
             updatedAt= data.updatedAt,
             deletedAt= data.deletedAt,
             userId= userDni,
-            districtId= data.districtId,
             municipalityId= data.municipalityId,
             scheduleId= data.scheduleId,
 
@@ -49,7 +48,7 @@ class SerenazgoService:
 
 
     async def getSerenazgoById(self, dni: str) -> Optional[Serenazgo]:
-        Serenazgo = await getSerenezgoById(self.dbSession, dni)
+        Serenazgo = await getSerenazgoById(self.dbSession, dni)
         if not Serenazgo:
             return None
         return Serenazgo

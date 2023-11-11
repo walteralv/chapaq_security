@@ -19,7 +19,6 @@ class SerenazgoCreate(BaseModel):
     createdAt: Optional[datetime] = Field(default=datetime.now(), title="registration date")
     updatedAt: Optional[datetime] = Field(default=None, title="updated date")
     deletedAt: Optional[datetime] = Field(default=None, title="removed date")
-    districtId: Optional[str] = Field(default=None, title="district alpha Code")
     municipalityId: int = Field(...,title="municipality")
     scheduleId: int =  Field(..., title="scheduleId")
 
@@ -40,7 +39,6 @@ class SerenazgoOut(BaseModel):
     updatedAt: Optional[datetime] = Field(default=None, title="updated date")
     deletedAt: Optional[datetime] = Field(default=None, title="removed date")
     userId: str = Field(..., title='user dni')
-    districtId: Optional[str] = Field(default=None, title="district alpha Code")
     municipalityId: int = Field(...,title="municipality")
     scheduleId: int =  Field(..., title="scheduleId")
 

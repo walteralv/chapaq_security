@@ -10,8 +10,8 @@ async def getSerenazgoById(db: Session, dni: str):
         .where(Serenazgo.dni == dni)
         .limit(1)
     )
-    Serenazgo = await db.scalar(query)
-    return Serenazgo
+    serenazgo = await db.scalar(query)
+    return serenazgo
 
 async def updateImageSerenazgoById(db: Session, dni: str, data: SerenazgoUpdateImage):
     query = (
