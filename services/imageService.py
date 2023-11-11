@@ -2,7 +2,7 @@ from models.incidenceImage import IncidenceImage
 
 from sqlalchemy.orm import Session
 from datetime import datetime
-from core.config import Settings
+from core.config import settings
 
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -15,7 +15,7 @@ class ImageService:
 
     async def loadToS3(self, s3, file ,filename: str):
         s3.upload_fileobj(file, "walter-garbage", filename)
-        image_url = f"https://{Settings.AWS_BUCKET_NAME}.s3.{Settings.AWS_BUCKET_REGION}.amazonaws.com/{filename}"
+        image_url = f"https://{settings.AWS_BUCKET_NAME}.s3.{settings.AWS_BUCKET_REGION}.amazonaws.com/{filename}"
         return image_url
     
     def generateImageuuid(self, file_type: str, file_extension: str):
