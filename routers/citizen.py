@@ -72,8 +72,8 @@ async def updateImageCitizenById(data: CitizenUpdateImage, user: User = Depends(
         async with session.begin():
             try:
                 if user is not None:
-                    #return await CitizenService(session).updateCitizenById(user.dni, CitizenUpdate)
-                    return await CitizenService(session).updateImageCitizenById(user.dni, data)
+                    await CitizenService(session).updateImageCitizenById(user.dni, data)
+                    return await CitizenService(session).getCitizenById(user.dni)
                 raise HTTPException(
                     status_code= status.HTTP_404_NOT_FOUND,
                     detail="User not found"

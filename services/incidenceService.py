@@ -1,7 +1,7 @@
-from dtos.incidence import IncidenceCreate, IncidenceUpdate, IncidenceOut
+from dtos.incidence import IncidenceCreate, IncidenceUpdate, IncidenceOut, IncidenceLocationUpdate, IncidenceStatusUpdate
 from models.users  import User
 from models.incidence import Incidence
-from repository.incidence import  getAllIncidenceCitizenId, getAllIncident, getIncidenceById 
+from repository.incidence import  getAllIncidenceCitizenId, getAllIncident, getIncidenceById , updateLocationIncidenceById, updateStatusIncidenceById
 
 from typing import List, Optional
 from uuid import UUID
@@ -12,7 +12,7 @@ class IncidenceService:
     def __init__(self, dbSession: Session) -> None:
         self.dbSession = dbSession
 
-    async def createIncidence(self, data: IncidenceCreate) -> Optional[Incidence]:
+    async def createIncidence(self,dni, data: IncidenceCreate) -> Optional[Incidence]:
         incidenceIn = Incidence(
             #id= data.id,
             description= data.description, 
@@ -26,7 +26,7 @@ class IncidenceService:
             createdAt=  data.createdAt,
             updatedAt=  data.updatedAt,
             deletedAt=  data.deletedAt,
-            citizenId=  data.citizenId,
+            citizenId=  dni,
             serenazgoId=  data.serenazgoId,
             districtId= data.districtId,
             currentStatusId=  data.currentStatusId,
@@ -51,6 +51,19 @@ class IncidenceService:
 
     async def getIncidenceStatusById(self, identifier: str) -> Optional[Incidence]:
         incidence = await getIncidenceById(self.dbSession, identifier)
+        if not incidence:
+            return None
+        return incidence
+    
+    
+    async def updateLocationIncidenceById(self, id: int, data: IncidenceLocationUpdate)-> Optional[Incidence]:
+        incidence = await updateLocationIncidenceById(self.dbSession, id, data)
+        if not incidence:
+            return None
+        return incidence
+    
+    async def updateStatusIncidenceById(self, id: int, data: IncidenceStatusUpdate)-> Optional[Incidence]:
+        incidence = await updateStatusIncidenceById(self.dbSession, id, data)
         if not incidence:
             return None
         return incidence

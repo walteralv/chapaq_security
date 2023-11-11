@@ -17,7 +17,6 @@ class IncidenceCreate(BaseModel):
     createdAt: Optional[datetime] = Field(default=datetime.now().today(), title="registration date")
     updatedAt: Optional[datetime] = Field(default=None, title="updated date")
     deletedAt: Optional[datetime] = Field(default=None, title="removed date")
-    citizenId: Optional[str] = Field(default=None, title="citizen dni")
     serenazgoId: Optional[str] = Field(default=None, title="serenazgo dni")
     districtId: Optional[str] = Field(default=None, title="district alpha Code")
     currentStatusId: Optional[str] = Field(default=None, title="incidence status id")
@@ -67,6 +66,16 @@ class IncidenceStatus(BaseModel):
     currentStatusId: Optional[str] = Field(default=None, title="incidence status id")
     typeId: Optional[str] = Field(default=None, title="incidence type id")
     
+    
+class IncidenceLocationUpdate(BaseModel):
+    latitude: float = Field(..., title='incidence latitude')
+    longitude: float = Field(..., title='incidence latitude')
+    updatedAt: datetime = Field(..., title="updated date")
+    
+    
+class IncidenceStatusUpdate(BaseModel):
+    currentStatusId: str = Field(..., title="incidence status id")
+    updatedAt: datetime = Field(..., title="updated date")
     
 
 

@@ -1,4 +1,5 @@
 from models.incidence import Incidence
+from dtos.incidence import IncidenceLocationUpdate, IncidenceStatusUpdate
 
 from sqlalchemy.orm import Session
 from sqlalchemy.future import select
@@ -38,3 +39,27 @@ async def getIncidenceStatusById(db: Session, identifier: str):
     user = await db.scalar(query)
     return user
 
+async def updateLocationIncidenceById(db: Session, id: int, data: IncidenceLocationUpdate):
+    query = (
+        update(Incidence).
+        where(Incidence.id == id).
+        values(
+            latitude= data.latitude,
+            longitude= data.longitude, 
+            updatedAt= data.updatedAt
+        )
+    )
+    await db.execute(query)
+
+
+
+async def updateStatusIncidenceById(db: Session, id: int, data: IncidenceStatusUpdate):
+    query = (
+        update(Incidence).
+        where(Incidence.id == id).
+        values(
+            currentStatusId= data.currentStatusId,
+            updatedAt= data.updatedAt
+        )
+    )
+    await db.execute(query)
