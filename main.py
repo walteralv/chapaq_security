@@ -31,4 +31,8 @@ async def startup():
         await conn.run_sync(Base.metadata.create_all)
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     uvicorn.run(app, host="127.0.0.1", port=settings.PORT)
+=======
+    uvicorn.run(app, port=settings.PORT)
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441

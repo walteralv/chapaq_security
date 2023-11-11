@@ -1,10 +1,17 @@
 from dtos.user import UserOut, UserAuth, UserUpdate
+<<<<<<< HEAD
 from dtos.citizen import CitizenCreate, CitizenUpdateImage, CitizenOut
+=======
+from dtos.citizen import CitizenCreate
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
 from core.security import getPassword, verifyPassword
 from models.users import User
 from models.citizen import Citizen
 from repository.users import getUserById
+<<<<<<< HEAD
 from repository.citizen import getCitizenById, updateImageCitizenById
+=======
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
 
 from typing import Optional
 from sqlalchemy import or_
@@ -29,7 +36,11 @@ class CitizenService:
             phone= data.phone,
             address= data.address,
             urlImage= data.urlImage,
+<<<<<<< HEAD
             uploadDate= data.uploadDate,
+=======
+            uploadDate= data.upladDate,
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
             is_active= data.is_active,
             is_deleted= data.is_deleted,
             createdAt= datetime.now(),
@@ -45,6 +56,7 @@ class CitizenService:
         return citizenIn
 
 
+<<<<<<< HEAD
 
     async def getCitizenById(self, dni: str) -> Optional[Citizen]:
         citizen = await getCitizenById(self.dbSession, dni)
@@ -57,3 +69,18 @@ class CitizenService:
         
     
     
+=======
+    async def authenticate(self, identifier: str, hashedPassword: str) -> Optional[User]:
+        user = await getUserById(self.dbSession, identifier)
+
+        if not user or not verifyPassword(hashedPassword, user.hashed_password):
+            return None
+        return user
+
+    async def getUserByIdentifier(self, identifier: str) -> Optional[User]:
+        user = await getUserById(self.dbSession, identifier)
+
+        if not user:
+            return None
+        return user
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441

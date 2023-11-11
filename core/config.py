@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7   # 7 days
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
+<<<<<<< HEAD
         "http://localhost:8000"
     ]
     PROJECT_NAME: str = "CHAPAQ"
@@ -22,6 +23,20 @@ class Settings(BaseSettings):
     #Database
     SQLALCHEMY_DATABASE_URL: str = config("SQLALCHEMY_DATABASE_URL", cast=str)
 
+=======
+        "http://0.0.0.0:8000",
+
+    ]
+    PROJECT_NAME: str = "CHAPAQ"
+
+    # Database
+    SQLALCHEMY_DATABASE_URL: str = config("SQLALCHEMY_DATABASE_URL", cast=str)
+    # Aws S3
+    AWS_BUCKET_NAME: str = "walter-garbage"
+    AWS_BUCKET_REGION: str = "sa-east-1"
+    AWS_ACCESS_KEY: str = "AKIARN3WMC3ERYZULZ5R"
+    AWS_SECRET_KEY: str = "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"
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
     class Config:
         case_sensitive = True
 

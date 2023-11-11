@@ -1,6 +1,10 @@
 
 from dtos.user import UserAuth, UserOut, UserUpdate
+<<<<<<< HEAD
 from dtos.citizen import CitizenCreate, CitizenOut, CitizenUpdateImage
+=======
+from dtos.citizen import CitizenCreate, CitizenOut
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
 from services.userService import UserService
 from services.citizenService import CitizenService
 from models.users import User
@@ -32,6 +36,7 @@ async def createCitizen(data: CitizenCreate, user: User = Depends(getCurrentUser
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="User with this email or dni already exist"
                 )
+<<<<<<< HEAD
                 
                 
 @citizenRouter.get('/{id}', summary="Get citizen by Id", response_model= CitizenOut)
@@ -91,6 +96,8 @@ async def updateImageCitizenById(data: CitizenUpdateImage, user: User = Depends(
                 
                 
                 
+=======
+>>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
     
 def getMe():
     pass
