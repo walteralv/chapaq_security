@@ -12,9 +12,6 @@ pydantic[email]==2.4.2
 mysql==0.0.3
 mysql-connector-python==8.2.0
 aiomysql==0.2.0
-<<<<<<< HEAD
-aiosqlite==0.19.0
-=======
 aiosqlite==0.19.0
 boto3==1.28.84
->>>>>>> f460b6e54976db3a43cb9eb2a95d2d942e5f3441
+
