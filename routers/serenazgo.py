@@ -72,7 +72,8 @@ async def updateImageSerenazgoById(data: SerenazgoUpdateImage, user: User = Depe
         async with session.begin():
             try:
                 if user is not None:
-                    return await SerenazgoService(session).updateImageSerenazgoById(user.dni, data)
+                    await SerenazgoService(session).updateImageSerenazgoById(user.dni, data)
+                    return await SerenazgoService(session).getSerenazgoById(user.dni)
                 raise HTTPException(
                     status_code= status.HTTP_404_NOT_FOUND,
                     detail="User not found"

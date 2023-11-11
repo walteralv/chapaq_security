@@ -54,8 +54,10 @@ class SerenazgoService:
         return Serenazgo
     
     async def updateImageSerenazgoById(self, dni: str, data: SerenazgoUpdateImage):
-        await updateImageSerenazgoById(self.dbSession, dni, data)
-        
+        serenazgo = await updateImageSerenazgoById(self.dbSession, dni, data)
+        if not serenazgo:
+            return None
+        return serenazgo
     
     
     async def authenticate(self, identifier: str, hashedPassword: str) -> Optional[User]:
