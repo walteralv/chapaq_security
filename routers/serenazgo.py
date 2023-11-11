@@ -1,8 +1,8 @@
 
 from dtos.user import UserAuth, UserOut, UserUpdate
-from dtos.citizen import CitizenCreate, CitizenOut, CitizenUpdateImage
+from dtos.serenazgo import SerenazgoCreate, SerenazgoOut, SerenazgoUpdateImage
 from services.userService import UserService
-from services.citizenService import CitizenService
+from services.serenazgoService import SerenazgoService
 from models.users import User
 from services.authService import getCurrentUser
 from db.mysql import async_session
@@ -13,16 +13,16 @@ from fastapi import APIRouter, HTTPException, status
 from fastapi import Depends
 from sqlalchemy.exc import IntegrityError
 
-citizenRouter = APIRouter()
+serenazgoRouter = APIRouter()
 
 
-@citizenRouter.post('/create', summary="Create new citizen", response_model=CitizenOut)
-async def createCitizen(data: CitizenCreate, user: User = Depends(getCurrentUser)):
+@serenazgoRouter.post('/create', summary="Create new Serenazgo", response_model=SerenazgoOut)
+async def createSerenazgo(data: SerenazgoCreate, user: User = Depends(getCurrentUser)):
     async with async_session() as session:
         async with session.begin():
             try:
                 if user is not None:
-                    return await CitizenService(session).createCitizen(user.dni, data)
+                    return await SerenazgoService(session).createSerenazgo(user.dni, data)
                 raise HTTPException(
                     status_code= status.HTTP_404_NOT_FOUND,
                     detail="User not found"
@@ -32,14 +32,14 @@ async def createCitizen(data: CitizenCreate, user: User = Depends(getCurrentUser
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="User with this email or dni already exist"
                 )
-                
-@citizenRouter.get('/me', summary="Get current citizen", response_model= CitizenOut)
-async def getCurrentCitizen(user: User = Depends(getCurrentUser)):
+
+@serenazgoRouter.get('/me', summary="Get current Serenazgo", response_model= SerenazgoOut)
+async def getCurrentSerenazgo(user: User = Depends(getCurrentUser)):
     async with async_session() as session:
         async with session.begin():
             try:
                 if user is not None:
-                    return await CitizenService(session).getCitizenById(user.dni)
+                    return await SerenazgoService(session).getSerenazgoById(user.dni)
                 raise HTTPException(
                     status_code= status.HTTP_404_NOT_FOUND,
                     detail="User not found"
@@ -49,14 +49,14 @@ async def getCurrentCitizen(user: User = Depends(getCurrentUser)):
                     status_code=status.HTTP_403_FORBIDDEN,
                     detail="Invalid token",
                     headers={"WWW-Authenticate": "Bearer"},
-                )
+                )         
                 
-@citizenRouter.get('/{id}', summary="Get citizen by Id", response_model= CitizenOut)
-async def getCitizenById(id: int):
+@serenazgoRouter.get('/{id}', summary="Get Serenazgo by Id", response_model= SerenazgoOut)
+async def getSerenazgoById(id: int):
     async with async_session() as session:
         async with session.begin():
             try:
-                incidence = await CitizenService(session).getCitizenById(id)
+                incidence = await SerenazgoService(session).getSerenazgoById(id)
                 print(incidence)
                 return incidence
             except IntegrityError:
@@ -64,16 +64,16 @@ async def getCitizenById(id: int):
                     status_code=status.HTTP_403_FORBIDDEN,
                     detail="Invalid token",
                     headers={"WWW-Authenticate": "Bearer"},
-                )
+                )        
                 
-@citizenRouter.put('/me/update/image/', summary="update image current citizen", response_model= CitizenOut)
-async def updateImageCitizenById(data: CitizenUpdateImage, user: User = Depends(getCurrentUser)):
+@serenazgoRouter.put('/me/update/image/', summary="update image current Serenazgo")
+async def updateImageSerenazgoById(data: SerenazgoUpdateImage, user: User = Depends(getCurrentUser)):
     async with async_session() as session:
         async with session.begin():
             try:
                 if user is not None:
-                    await CitizenService(session).updateImageCitizenById(user.dni, data)
-                    return await CitizenService(session).getCitizenById(user.dni)
+                    await SerenazgoService(session).updateImageSerenazgoById(user.dni, data)
+                    return await SerenazgoService(session).getSerenazgoById(user.dni)
                 raise HTTPException(
                     status_code= status.HTTP_404_NOT_FOUND,
                     detail="User not found"
@@ -84,19 +84,3 @@ async def updateImageCitizenById(data: CitizenUpdateImage, user: User = Depends(
                     detail="Invalid token",
                     headers={"WWW-Authenticate": "Bearer"},
                 )
-                
-                
-                
-    
-def getMe():
-    pass
-
-def getCitizenById(dni):
-    pass
-
-def changeImage(url):
-    pass
-
-def deleteAccount():
-    pass
-
