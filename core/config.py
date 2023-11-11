@@ -22,11 +22,9 @@ class Settings(BaseSettings):
 
     # Database
     SQLALCHEMY_DATABASE_URL: str = config("SQLALCHEMY_DATABASE_URL", cast=str)
-    # Aws S3
-    AWS_BUCKET_NAME: str = "walter-garbage"
-    AWS_BUCKET_REGION: str = "sa-east-1"
-    AWS_ACCESS_KEY: str = "AKIARN3WMC3ERYZULZ5R"
-    AWS_SECRET_KEY: str = "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"
+    AWS_BUCKET_NAME: str = config("AWS_BUCKET_NAME", cast=str)
+    AWS_BUCKET_REGION: str = config("AWS_BUCKET_REGION", cast=str)
+
     class Config:
         case_sensitive = True
 
