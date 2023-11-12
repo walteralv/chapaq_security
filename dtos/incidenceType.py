@@ -28,8 +28,8 @@ class IncidenceTypeOut(BaseModel):
     is_active: bool = Field(default=True, title="incidence type is active")
     is_deleted: bool = Field(default=False, title="incidence type is inactive")
     createdAt: datetime = Field(default=datetime.now(), title="registration date")
-    updatedAt: datetime | None = Field(default=None, title="updated date")
-    deletedAt: datetime | None = Field(default=None, title="removed date")
+    updatedAt: datetime = Field(default=None, title="updated date")
+    deletedAt: datetime = Field(default=None, title="removed date")
 
 
 
