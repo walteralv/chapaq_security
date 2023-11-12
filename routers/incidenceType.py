@@ -15,13 +15,11 @@ from fastapi import Depends
 
 
 
-
-
 typeRouter = APIRouter()
 
 
 
-@typeRouter.get('/', summary="Get all indicent types", response_model=list[IncidenceTypeOut])
+@typeRouter.get('/', summary="Get all indicent types", response_model= IncidenceTypeOut)
 async def getAllIncidentTypes():
     async with async_session() as session:
         async with session.begin():
