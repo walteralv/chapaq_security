@@ -48,7 +48,7 @@ async def getIncidenceById(id: int):
                     headers={"WWW-Authenticate": "Bearer"},
                 )
             
-@incidenceRouter.get('/citizen/{id}', summary="Get all incidences of citizen", response_model=list[IncidenceOut])
+@incidenceRouter.get('/citizen/{id}', summary="Get all incidences of citizen", response_model=IncidenceOut)
 async def getAllIncidenceByCitizen(id: str):
     async with async_session() as session:
         async with session.begin():

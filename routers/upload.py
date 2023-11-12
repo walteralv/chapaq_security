@@ -32,5 +32,5 @@ async def create_upload_file(id: int, file: UploadFile):
                 )
 
 @uploadRouter.post("/uploadfiles/")
-async def create_upload_files(files: list[UploadFile]):
+async def create_upload_files(files: UploadFile):
     return {"filenames": [file.filename for file in files]}

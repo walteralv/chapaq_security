@@ -35,7 +35,7 @@ async def createUser(data: StatusCreate):
                 )       
 
 
-@statusRouter.get('/AllStatus', summary="Get status type by Id", response_model=list[StatusOut])
+@statusRouter.get('/AllStatus', summary="Get status type by Id", response_model=StatusOut)
 async def getAllStatus():
     async with async_session() as session:
         async with session.begin():
