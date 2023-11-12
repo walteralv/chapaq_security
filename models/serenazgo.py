@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Boolean, String, DateTime, Date, ForeignKey, Integer
+from sqlalchemy import Column, Boolean, String, DateTime, Date, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from db.mysql import  Base
@@ -23,6 +23,8 @@ class Serenazgo(Base):
     createdAt = Column(DateTime, default=datetime.now)
     updatedAt = Column(DateTime, default=datetime.now)
     deletedAt = Column(DateTime, default=datetime.now)
+    latitude = Column(Float) 
+    longitude = Column(Float)
 
 
     userId = Column(String, ForeignKey('user_table.dni'))

@@ -1,9 +1,9 @@
 from dtos.user import UserOut, UserAuth, UserUpdate
-from dtos.serenazgo import SerenazgoCreate, SerenazgoUpdateImage, SerenazgoOut
+from dtos.serenazgo import SerenazgoCreate, SerenazgoUpdateImage, SerenazgoOut, SerenazgoLocationUpdate, SerenazgoUpdateActivate, SerenazgoStatus
 from core.security import getPassword, verifyPassword
 from models.users import User
 from models.serenazgo import Serenazgo
-from repository.serenazgo import getSerenazgoById, updateImageSerenazgoById
+from repository.serenazgo import getSerenazgoById, updateImageSerenazgoById, getAllSerenazgo, getSerenazgoStatusById, updateLocationSerenazgoById, updateActivateSerenazgoById
 from repository.users import getUserById
 
 from typing import Optional
@@ -38,6 +38,8 @@ class SerenazgoService:
             userId= userDni,
             municipalityId= data.municipalityId,
             scheduleId= data.scheduleId,
+            latitude= data.latitude,
+            longitude= data.longitude
 
         )
 
@@ -73,3 +75,35 @@ class SerenazgoService:
         if not user:
             return None
         return user
+    
+    async def getAllSerenazgo(self) -> list[Serenazgo]:
+        Serenazgo = await getAllSerenazgo(self.dbSession)
+        if not Serenazgo:
+            return None
+        return Serenazgo
+    
+    async def getSerenazgoStatusById(self, dni: str) -> Optional[SerenazgoStatus]:
+        Serenazgo = await  getSerenazgoStatusById(self.dbSession, dni)
+        if not Serenazgo:
+            return None
+        return Serenazgo
+    
+    async def updateLocationIncidenceById(self, dni: str, data: SerenazgoLocationUpdate)-> Optional[Serenazgo]:
+        Serenazgo = await updateLocationSerenazgoById(self.dbSession, dni, data)
+        if not Serenazgo:
+            return None
+        return Serenazgo
+    
+    async def updateActivateSerenazgoById(self, dni: str, data: SerenazgoUpdateActivate)-> Optional[Serenazgo]:
+        Serenazgo = await updateActivateSerenazgoById(self.dbSession, dni, data)
+        if not Serenazgo:
+            return None
+        return Serenazgo
+    
+    
+    
+    
+    
+    
+    
+    

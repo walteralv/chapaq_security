@@ -17,7 +17,7 @@ class IncidenceCreate(BaseModel):
     createdAt: Optional[datetime] = Field(default=datetime.now().today(), title="registration date")
     updatedAt: Optional[datetime] = Field(default=None, title="updated date")
     deletedAt: Optional[datetime] = Field(default=None, title="removed date")
-    serenazgoId: Optional[str] = Field(default=None, title="serenazgo dni")
+    #serenazgoId: Optional[str] = Field(default=None, title="serenazgo dni")
     districtId: Optional[str] = Field(default=None, title="district alpha Code")
     currentStatusId: Optional[str] = Field(default=None, title="incidence status id")
     typeId: Optional[str] = Field(default=None, title="incidence type id")
