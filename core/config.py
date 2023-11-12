@@ -14,19 +14,17 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7   # 7 days
+    HOST: str = config("HOST", cast=str)
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
-        "http://0.0.0.0:8000",
-
+        f"http://0.0.0.0:8000",
     ]
     PROJECT_NAME: str = "CHAPAQ"
 
     # Database
     SQLALCHEMY_DATABASE_URL: str = config("SQLALCHEMY_DATABASE_URL", cast=str)
-    # Aws S3
-    AWS_BUCKET_NAME: str = "walter-garbage"
-    AWS_BUCKET_REGION: str = "sa-east-1"
-    AWS_ACCESS_KEY: str = "AKIARN3WMC3ERYZULZ5R"
-    AWS_SECRET_KEY: str = "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"
+    AWS_BUCKET_NAME: str = config("AWS_BUCKET_NAME", cast=str)
+    AWS_BUCKET_REGION: str = config("AWS_BUCKET_REGION", cast=str)
+
     class Config:
         case_sensitive = True
 
