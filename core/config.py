@@ -16,8 +16,9 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7   # 7 days
     HOST: str = config("HOST", cast=str)
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
+        f"http://0.0.0.0:8000",
         f"http://{HOST}",
-
+        f"http://{HOST}:8000",
     ]
     PROJECT_NAME: str = "CHAPAQ"
 
