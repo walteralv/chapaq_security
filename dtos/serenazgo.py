@@ -21,6 +21,8 @@ class SerenazgoCreate(BaseModel):
     deletedAt: Optional[datetime] = Field(default=None, title="removed date")
     municipalityId: int = Field(...,title="municipality")
     scheduleId: int =  Field(..., title="scheduleId")
+    latitude: float = Field(..., title='incidence latitude')
+    longitude: float = Field(..., title='incidence latitude')
 
 
 class SerenazgoOut(BaseModel):
@@ -41,10 +43,30 @@ class SerenazgoOut(BaseModel):
     userId: str = Field(..., title='user dni')
     municipalityId: int = Field(...,title="municipality")
     scheduleId: int =  Field(..., title="scheduleId")
+    latitude: float = Field(..., title='incidence latitude')
+    longitude: float = Field(..., title='incidence latitude')
+    
 
 class SerenazgoUpdateImage(BaseModel):
     urlImage: str  = Field(..., title='Serenazgo urlImage')
     uploadDate: datetime = Field(..., title="uplodad image date")
     updatedAt: datetime = Field(..., title="updated date")
+    
+
+class SerenazgoUpdateActivate(BaseModel):
+    is_active: bool = Field(..., title="Serenazgo is active")
+    
+    
+class SerenazgoLocationUpdate(BaseModel):
+    latitude: float = Field(..., title='Serenazgo latitude')
+    longitude: float = Field(..., title='Serenazgo latitude')
+    updatedAt: datetime = Field(..., title="updated date")
+    
+
+class SerenazgoStatus(BaseModel):
+    dni: str =  Field(..., title='Serenazgo id')
+    latitude: float = Field(..., title='Serenazgo latitude')
+    longitude: float = Field(..., title='Serenazgo latitude')
+
 
     

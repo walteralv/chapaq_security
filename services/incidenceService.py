@@ -1,6 +1,9 @@
 from dtos.incidence import IncidenceCreate, IncidenceUpdate, IncidenceOut, IncidenceLocationUpdate, IncidenceStatusUpdate
 from models.users  import User
 from models.incidence import Incidence
+from models.serenazgo import Serenazgo
+from services.serenazgoService import SerenazgoService
+from services.citizenService import CitizenService
 from repository.incidence import  getAllIncidenceCitizenId, getAllIncident, getIncidenceById , updateLocationIncidenceById, updateStatusIncidenceById
 
 from typing import List, Optional
@@ -13,7 +16,20 @@ class IncidenceService:
         self.dbSession = dbSession
 
     async def createIncidence(self,dni, data: IncidenceCreate) -> Optional[Incidence]:
-        incidenceIn = Incidence(
+        ##### logica del seleccion de sereno
+        
+        serenazgos = await SerenazgoService(self.dbSession).getAllSerenazgo()
+        #citizen = await CitizenService(self.dbSession).getCitizenById(dni)
+        if serenazgos is not None:
+            disG: float = 0
+            dniG: str = ''
+            for serenazgo in serenazgos:
+                dis = (serenazgo.latitude - data.latitude)**2 + (serenazgo.latitude - data.longitude)**2
+                if dis >= disG:
+                    dniG = serenazgo.dni
+            
+            #if serenazgos is not None:
+            incidenceIn = Incidence(
             #id= data.id,
             description= data.description, 
             latitude=  data.latitude,
@@ -27,14 +43,16 @@ class IncidenceService:
             updatedAt=  data.updatedAt,
             deletedAt=  data.deletedAt,
             citizenId=  dni,
-            serenazgoId=  data.serenazgoId,
+            serenazgoId=  dniG,
             districtId= data.districtId,
             currentStatusId=  data.currentStatusId,
             typeId= data.typeId,
-        )
-        self.dbSession.add(incidenceIn)
-        await self.dbSession.flush()
-        return incidenceIn
+            )
+            self.dbSession.add(incidenceIn)
+            await self.dbSession.flush()
+            return incidenceIn
+        else:
+            return None
     
     async def getIncidenceById(self, id):
         incidence = await getIncidenceById(self.dbSession, id)
